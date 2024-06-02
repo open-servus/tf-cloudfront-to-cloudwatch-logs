@@ -1,0 +1,397 @@
+resource "aws_cloudwatch_dashboard" "cw_dashboard_for_cf_logs" {
+  dashboard_body = "{
+    "widgets": [
+        {
+            "type": "metric",
+            "x": 0,
+            "y": 12,
+            "width": 12,
+            "height": 6,
+            "properties": {
+                "period": 60,
+                "insightRule": {
+                    "maxContributorCount": 10,
+                    "orderBy": "Sum",
+                    "ruleName": "${aws_cloudwatch_event_rule.bytes_out_by_pop_contributor_insight_rule.name}"
+                },
+                "stacked": false,
+                "view": "timeSeries",
+                "yAxis": {
+                    "left": {
+                        "showUnits": false
+                    },
+                    "right": {
+                        "showUnits": false
+                    }
+                },
+                  "region": "${data.aws_region.current.name}",
+                "title": "Bytes Out By POP",
+                "legend": {
+                    "position": "right"
+                }
+            }
+        },
+        {
+            "type": "metric",
+            "x": 12,
+            "y": 6,
+            "width": 12,
+            "height": 6,
+            "properties": {
+                "period": 60,
+                "insightRule": {
+                    "maxContributorCount": 10,
+                    "orderBy": "Sum",
+                    "ruleName": "${aws_cloudwatch_event_rule.cf_requests_by_http_method_contributor_insight_rule.name}"
+                },
+                "stacked": false,
+                "view": "timeSeries",
+                "yAxis": {
+                    "left": {
+                        "showUnits": false
+                    },
+                    "right": {
+                        "showUnits": false
+                    }
+                },
+                "region": "${data.aws_region.current.name}",
+                "title": "Requests By HTTP Method",
+                "legend": {
+                    "position": "right"
+                }
+            }
+        },
+        {
+            "type": "metric",
+            "x": 0,
+            "y": 18,
+            "width": 12,
+            "height": 6,
+            "properties": {
+                "period": 60,
+                "insightRule": {
+                    "maxContributorCount": 10,
+                    "orderBy": "Sum",
+                    "ruleName": "${aws_cloudwatch_event_rule.cf_requests_by_uri_contributor_insight_rule.name}"
+                },
+                "stacked": false,
+                "view": "timeSeries",
+                "yAxis": {
+                    "left": {
+                        "showUnits": false
+                    },
+                    "right": {
+                        "showUnits": false
+                    }
+                },
+                "region": "${data.aws_region.current.name}",
+                "title": "Requests By URI",
+                "legend": {
+                    "position": "right"
+                }
+            }
+        },
+        {
+            "type": "metric",
+            "x": 12,
+            "y": 12,
+            "width": 12,
+            "height": 6,
+            "properties": {
+                "period": 60,
+                "insightRule": {
+                    "maxContributorCount": 10,
+                    "orderBy": "Sum",
+                    "ruleName": "${aws_cloudwatch_event_rule.cache_miss_by_uri_contributor_insight_rule.name}"
+                },
+                "stacked": false,
+                "view": "timeSeries",
+                "yAxis": {
+                    "left": {
+                        "showUnits": false
+                    },
+                    "right": {
+                        "showUnits": false
+                    }
+                },
+                "region": "${data.aws_region.current.name}",
+                "title": "Cache Miss By URI",
+                "legend": {
+                    "position": "right"
+                }
+            }
+        },
+        {
+            "type": "metric",
+            "x": 12,
+            "y": 24,
+            "width": 12,
+            "height": 6,
+            "properties": {
+                "period": 60,
+                "insightRule": {
+                    "maxContributorCount": 10,
+                    "orderBy": "Sum",
+                    "ruleName": "${aws_cloudwatch_event_rule.errors_by_pop_and_path_contributor_insight_rule.name}"
+                },
+                "stacked": false,
+                "view": "timeSeries",
+                "yAxis": {
+                    "left": {
+                        "showUnits": false
+                    },
+                    "right": {
+                        "showUnits": false
+                    }
+                },
+                "region": "${data.aws_region.current.name}",
+                "title": "Errors By POP and Path",
+                "legend": {
+                    "position": "right"
+                }
+            }
+        },
+        {
+            "type": "metric",
+            "x": 12,
+            "y": 18,
+            "width": 12,
+            "height": 6,
+            "properties": {
+                "period": 60,
+                "insightRule": {
+                    "maxContributorCount": 10,
+                    "orderBy": "Sum",
+                    "ruleName": "${aws_cloudwatch_event_rule.cf_status_by_pop_contributor_insight_rule.name}"
+                },
+                "stacked": false,
+                "view": "timeSeries",
+                "yAxis": {
+                    "left": {
+                        "showUnits": false
+                    },
+                    "right": {
+                        "showUnits": false
+                    }
+                },
+                "region": "${data.aws_region.current.name}",
+                "title": "HTTP Status By POP",
+                "legend": {
+                    "position": "right"
+                }
+            }
+        },
+        {
+            "type": "metric",
+            "x": 0,
+            "y": 24,
+            "width": 12,
+            "height": 6,
+            "properties": {
+                "period": 60,
+                "insightRule": {
+                    "maxContributorCount": 10,
+                    "orderBy": "Sum",
+                    "ruleName": "${aws_cloudwatch_event_rule.edge_status_by_pop_contributor_insight_rule.name}"
+                },
+                "stacked": false,
+                "view": "timeSeries",
+                "yAxis": {
+                    "left": {
+                        "showUnits": false
+                    },
+                    "right": {
+                        "showUnits": false
+                    }
+                },
+                "region": "${data.aws_region.current.name}",
+                "title": "Edge Status By POP",
+                "legend": {
+                    "position": "right"
+                }
+            }
+        },
+        {
+            "type": "metric",
+            "x": 12,
+            "y": 30,
+            "width": 12,
+            "height": 6,
+            "properties": {
+                "period": 60,
+                "insightRule": {
+                    "maxContributorCount": 10,
+                    "orderBy": "Sum",
+                    "ruleName": "${aws_cloudwatch_event_rule.cf_requests_by_uri_and_user_agent_contributor_insight_rule.name}"
+                },
+                "stacked": false,
+                "view": "timeSeries",
+                "yAxis": {
+                    "left": {
+                        "showUnits": false
+                    },
+                    "right": {
+                        "showUnits": false
+                    }
+                },
+                "region": "${data.aws_region.current.name}",
+                "title": "Requests By URI and UserAgent",
+                "legend": {
+                    "position": "right"
+                }
+            }
+        },
+        {
+            "type": "metric",
+            "x": 0,
+            "y": 6,
+            "width": 12,
+            "height": 6,
+            "properties": {
+                "metrics": [
+                    [ "${aws_cloudwatch_log_group.cloud_watch_log_group.arn}", "Miss-Requests", { "id": "m2" } ],
+                    [ ".", "Hit-Requests", { "id": "m3" } ],
+                    [ ".", "LimitExceeded-Requests", { "id": "m4" } ],
+                    [ ".", "Error-Requests", { "id": "m5" } ],
+                    [ ".", "CapacityExceeded-Requests", { "id": "m6" } ],
+                    [ ".", "OriginShieldHit-Requests", { "id": "m7" } ],
+                    [ ".", "Redirect-Requests", { "id": "m8" } ],
+                    [ ".", "RefreshHit-Requests", { "id": "m9" } ]
+                ],
+                "view": "timeSeries",
+                "stacked": false,
+                "region": "${data.aws_region.current.name}",
+                "stat": "SampleCount",
+                "period": 60,
+                "title": "Edge Status",
+                "legend": {
+                    "position": "bottom"
+                }
+            }
+        },
+        {
+            "type": "metric",
+            "x": 6,
+            "y": 0,
+            "width": 6,
+            "height": 6,
+            "properties": {
+                "metrics": [
+                    [ "AWS/CloudFront", "Requests", "Region", "Global", "DistributionId", "${var.cf_distribution_id}", { "region": "us-east-1" } ]
+                ],
+                "view": "timeSeries",
+                "stacked": false,
+                "region": "${data.aws_region.current.name}",
+                "period": 60,
+                "stat": "Sum"
+            }
+        },
+        {
+            "type": "text",
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 6,
+            "properties": {
+                "markdown": "\n# CloudFront Insights Dashboard\n Distribution URL \n\nSample Dashboard showing some of the different visualization options for CloudFront.\n\n\n## Metric Filters\nThis Dashboard shows Metrics that were created from a metric filter in CloudWatch Logs. In the metric filter, we defined each edge status type as a metric. the metric value is in the overall time taken, but the sample count will tell us the number of requests for a given result type. \n\n## Contributor Insights \nContributor Insights rules are used to power many of the visualizations on this Dashboard. we can get requests by URI, Edge Location. See error type by Edge Location. We can see the most popular objects for a given status, etc. \n"
+            }
+        },
+        {
+            "type": "metric",
+            "x": 12,
+            "y": 0,
+            "width": 6,
+            "height": 6,
+            "properties": {
+                "metrics": [
+                    [ "AWS/CloudFront", "4xxErrorRate", "Region", "Global", "DistributionId", "${var.cf_distribution_id}", { "region": "us-east-1", "color": "#ff7f0e" } ],
+                    [ ".", "5xxErrorRate", ".", ".", ".", ".", { "region": "us-east-1", "color": "#d62728" } ]
+                ],
+                "view": "timeSeries",
+                "stacked": false,
+                "region": "${data.aws_region.current.name}",
+                "annotations": {
+                    "horizontal": [
+                        {
+                            "label": "Page Someone",
+                            "value": 0.8
+                        }
+                    ]
+                },
+                "period": 300,
+                "stat": "Average"
+            }
+        },
+        {
+            "type": "metric",
+            "x": 18,
+            "y": 0,
+            "width": 6,
+            "height": 6,
+            "properties": {
+                "metrics": [
+                    [ "AWS/CloudFront", "BytesDownloaded", "Region", "Global", "DistributionId", "${var.cf_distribution_id}", { "region": "us-east-1", "color": "#2ca02c" } ]
+                ],
+                "view": "timeSeries",
+                "stacked": false,
+                "region": "${data.aws_region.current.name}",
+                "stat": "Sum",
+                "period": 60
+            }
+        },
+        {
+            "type": "metric",
+            "x": 0,
+            "y": 30,
+            "width": 12,
+            "height": 6,
+            "properties": {
+                "metrics": [
+                    [ "${aws_cloudwatch_log_group.cloud_watch_log_group.arn}", "HTTP-Requests" ],
+                    [ ".", "HTTPS-Requests" ]
+                ],
+                "view": "timeSeries",
+                "stacked": false,
+                "region": "${data.aws_region.current.name}",
+                "title": "HTTP vs HTTPs",
+                "period": 60,
+                "stat": "SampleCount"
+            }
+        },
+        {
+            "type": "metric",
+            "x": 0,
+            "y": 36,
+            "width": 12,
+            "height": 6,
+            "properties": {
+                "metrics": [
+                    [ "${aws_cloudwatch_log_group.cloud_watch_log_group.arn}", "Time-Taken" ],
+                    [ ".", "Time-to-First-Byte" ]
+                ],
+                "view": "timeSeries",
+                "stacked": false,
+                "region": "${data.aws_region.current.name}",
+                "stat": "p99",
+                "period": 60,
+                "title": "P99 Time vs TTFB Seconds"
+            }
+        },
+        {
+          "type": "log",
+          "x": 0,
+          "y": 42,
+          "width": 24,
+          "height": 6,
+          "properties": {
+              "query": "SOURCE '${aws_cloudwatch_log_group.cloud_watch_log_group.arn}' | parse @message \"*\t*\t*\t*\t*\t*\t*\t*\t*\t*\t*\t*\t*\t*\t*\t*\t*\t*\t*\t*\t*\t*\t*\t*\t*\t*\t*\t*\t*\t*\t*\t*\t*\" as date, time, x_edge_location, sc_bytes, c_ip, cs_method, host, cs_uri_stem, sc_status, referer, useragent, cs_uri_query, cookie, x_edge_result_type, x_edge_request_id, x_host_header, cs_protocol, cs_bytes, time_taken, x_forwarded_for, ssl_protocol, ssl_cipher, x_edge_response_result_type, cs_protocol_version, fle_status, fle_encrypted_fields, c_port, time_to_first_byte, x_edge_detailed_result_type, sc_content_type, sc_content_len, sc_range_start, sc_range_end\n| limit 20\n| sort @timestamp desc ",
+              "region": "${data.aws_region.current.name}",
+              "stacked": false,
+              "view": "table"
+          }
+      }
+    ]
+ }
+ "
+  dashboard_name = "${var.cf_distribution_id}-Monitoring"
+}
